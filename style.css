@@ -1,26 +1,32 @@
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai+Looped:wght@300;400;500;600;700&display=swap');
 
-
 *, *::before, *::after {
     box-sizing: border-box;
 }
+
 * {
     margin: 0;
 }
+
 html, body {
     height: 100%;
 }
+
 body {
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
-    font-family: 'IBM Plex Sans Thai Looped', sans-serif;}
+    font-family: 'IBM Plex Sans Thai Looped', sans-serif;
+}
+
 img, picture, video, canvas, svg {
     display: block;
     max-width: 100%;
 }
+
 input, button, textarea, select {
     font: inherit;
 }
+
 p, h1, h2, h3, h4, h5, h6 {
     overflow-wrap: break-word;
 }
@@ -28,12 +34,14 @@ p, h1, h2, h3, h4, h5, h6 {
 body{
     background-color: #17181F;
 }
+
 main{
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 }
+
 header{
     max-width: 800px;
     margin: 1rem auto;
@@ -41,10 +49,12 @@ header{
     justify-content: space-between;
     align-items: center;
 }
+
 form{
     display: flex;
     justify-content: space-between;
 }
+
 form input, input{
     appearance: none;
     border: none;
@@ -52,6 +62,7 @@ form input, input{
     background: none;
     opacity: 50%;
 }
+
 #new-game-name{
     flex: 1 1 0%;
     border: solid 1px tomato;
@@ -61,34 +72,42 @@ form input, input{
     font-size: 1rem;
     color: tomato;
 }
+
 #new-game-name::placeholder{
     color: tomato;
     font-size: 1rem;
 }
+
 #new-game-submit{
     color: tomato;
     font-size: 1rem;
     cursor: pointer;
     transition: 0.2s;
 }
+
 #new-game-submit:hover{
     opacity: 70%;
 }
+
 #new-game-submit:active{
     opacity: 100%;
 }
+
 .header__title{
     color: white;
     font-size: 2rem;
 }
+
 .header__sub{
     color: white;
     font-size: 1.8rem;
 }
+
 .pending, .completed{
     width: 100%;
     max-width: 800px;
 }
+
 .card, .card__completed{
     background-color: #20212C;
     width: 100%;
@@ -102,10 +121,12 @@ form input, input{
     align-items: left;
     justify-content: left;
 }
+
 .pending__title, .completed__title{
     color: white;
     margin: 1rem;
 }
+
 .card__status{
     width: 50px;
     height: 50px;
@@ -123,25 +144,15 @@ form input, input{
     justify-content: space-between;
     align-items: center;
 }
-/*
-.card__check{
-    margin: auto;
-    visibility: hidden;
-    color: black;
-    background-color: tomato;
-    border: solid 4px tomato;
-    border-radius: 10px;
-    padding: 0.5rem;
-}*/
 
 .card__para{
     color: white;
 }
+
 .card__title{
     color: white;
     font-size: 1.5rem;
 }
-
 
 .card.completed > .card__status{
     width: 50px;
@@ -153,11 +164,13 @@ form input, input{
     line-height: 1.2;
     border-radius: 15px;
 }
+
 .card.completed > .card__row > .card__data > .card__title{
     color: tomato;
     font-size: 1.5rem;
     text-decoration: line-through;
 }
+
 .edit__btn, .delete__btn{
     width: 50px;
     height: 50px;
@@ -170,6 +183,7 @@ form input, input{
     cursor: pointer;
     transition: all 0.1s ease-in-out;
 }
+
 .edit__btn:hover, .delete__btn:hover{
     color: tomato;
     opacity: 1;
@@ -181,8 +195,8 @@ form input, input{
     opacity: 1;
     font-weight: 700;
     pointer-events: none;
-    /*max-width: 100%;*/
 }
+
 .text:focus{
     border: solid 1px tomato;
     border-radius: 15px;
