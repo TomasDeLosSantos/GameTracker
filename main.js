@@ -154,13 +154,15 @@ window.addEventListener('load', () => {
     }
     function load(){
         const cards = JSON.parse(localStorage.getItem("cards"));
-        for(let card of cards){
-            if(card.completed){
-                const newCard = createCard(card.cardName, card.info);
-                newCard.classList.add("completed");
-                completed__list.appendChild(newCard);
-            } else{
-                pending__list.appendChild(createCard(card.cardName, card.info));
+        if(cards != []){
+            for(let card of cards){
+                if(card.completed){
+                    const newCard = createCard(card.cardName, card.info);
+                    newCard.classList.add("completed");
+                    completed__list.appendChild(newCard);
+                } else{
+                    pending__list.appendChild(createCard(card.cardName, card.info));
+                }
             }
         }
     }
