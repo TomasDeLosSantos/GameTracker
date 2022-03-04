@@ -154,7 +154,7 @@ window.addEventListener('load', () => {
     }
     function load(){
         const cards = JSON.parse(localStorage.getItem("cards"));
-        if(cards != []){
+        if(cards != undefined){
             for(let card of cards){
                 if(card.completed){
                     const newCard = createCard(card.cardName, card.info);
