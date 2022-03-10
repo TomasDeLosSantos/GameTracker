@@ -28,8 +28,8 @@ passport.deserializeUser((user, done) => {
 });
 // Initiate Strategy
 passport.use(new SteamStrategy({
-    returnURL: 'https://gametracker-js.vercel.app/api/auth/steam/return',
-    realm: 'https://gametracker-js.vercel.app/',
+    returnURL: 'https://gametracker-js.herokuapp.com/api/auth/steam/return',
+    realm: 'https://gametracker-js.herokuapp.com/',
     apiKey: steamKey
 }, function (identifier, profile, done) {
     process.nextTick(function () {
