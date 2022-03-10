@@ -1,0 +1,277 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai+Looped:wght@300;400;500;600;700&display=swap');
+
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+* {
+    margin: 0;
+}
+
+html, body {
+    height: 100%;
+}
+
+body {
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    font-family: 'IBM Plex Sans Thai Looped', sans-serif;
+}
+
+img, picture, video, canvas, svg {
+    display: block;
+    max-width: 100%;
+}
+
+input, button, textarea, select {
+    font: inherit;
+}
+
+p, h1, h2, h3, h4, h5, h6 {
+    overflow-wrap: break-word;
+}
+
+body{
+    background-color: #17181F;
+}
+
+main{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+header{
+    max-width: 800px;
+    margin: 1rem auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+form{
+    display: flex;
+    justify-content: space-between;
+}
+
+form input, input{
+    appearance: none;
+    border: none;
+    outline: none;
+    background: none;
+    opacity: 50%;
+}
+
+#new-game{
+    position: relative;
+    overflow: visible;
+}
+
+#new-game-name{
+    flex: 1 1 0%;
+    border: solid 1px tomato;
+    border-radius: 30px;
+    padding: 0.5rem 1rem;
+    margin-right: 1rem;
+    font-size: 1rem;
+    color: tomato;
+}
+
+#new-game-name::placeholder{
+    color: tomato;
+    font-size: 1rem;
+}
+
+
+#new-game-submit{
+    color: tomato;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+#new-game-submit:hover{
+    opacity: 70%;
+}
+
+#new-game-submit:active{
+    opacity: 100%;
+}
+
+#new-game-list{
+    visibility: hidden;
+    position: absolute;
+    top: 3rem;
+    z-index: 100;
+    background-color: #17181F;
+    border: solid 1px tomato;
+    border-radius: 15px;
+    padding: 0.2rem;
+}
+
+#new-game-list > h2{
+    /* background-color: #17181F; */
+    color: white;
+    
+    border-radius: 15px;
+    /* border-bottom: solid 1px tomato; */
+    margin: 0.2rem;
+    padding: 0.3rem;
+    padding-left: 0.5rem;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+}
+#new-game-list > h2:hover{
+    background-color: #20212C;
+}
+.login__row{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    margin-top: 1rem;
+}
+.login{
+    background-color: #20212C;
+    color: tomato;
+    opacity: 0.6;
+    padding: 0.3rem 0.6rem;
+    border-radius: 15px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+.login:hover{
+    background-color: #2e2f3d;
+    opacity: 1;
+}
+.logout{
+    color: tomato;
+    opacity: 0.6;
+    text-decoration: none;
+    font-size: 1.1rem;
+    padding: 0.2rem 0.5rem;
+    margin: auto;
+    transition: all 0.3s;
+}
+.logout:hover{
+    opacity: 1;
+}
+
+.header__title{
+    color: white;
+    font-size: 2rem;
+}
+
+.header__sub{
+    color: white;
+    font-size: 1.8rem;
+}
+
+.header__link{
+    color: white;
+    cursor: pointer;
+}
+
+.pending, .completed{
+    width: 100%;
+    max-width: 800px;
+}
+
+.card, .card__completed{
+    background-color: #20212C;
+    width: 100%;
+    /*height: 10vh;*/
+    /* max-width: 800px; */
+    border-radius: 30px;
+    margin: 1rem 0;
+    padding: 1rem 0.5rem;
+    display: flex;
+    flex-direction: row;
+    align-items: left;
+    justify-content: left;
+}
+
+.pending__title, .completed__title{
+    color: white;
+    margin: 1rem;
+}
+
+.card__status{
+    width: 50px;
+    height: 50px;
+    margin: auto 1rem;
+    border: solid 5px tomato;
+    border-radius: 15px;
+    cursor: pointer;
+    font-size: 0rem;
+    text-align: center;
+}
+
+.card__row{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card__para{
+    color: white;
+}
+
+.card__title{
+    color: white;
+    font-size: 1.5rem;
+}
+
+.card.completed > .card__status{
+    width: 50px;
+    height: 50px;
+    margin: auto 1rem;
+    border: solid 5px tomato;
+    background-color: tomato;
+    font-size: 2rem;
+    line-height: 1.2;
+    border-radius: 15px;
+}
+
+.card.completed > .card__row > .card__data > .text{
+    color: tomato;
+    font-size: 1.5rem;
+    text-decoration: line-through;
+}
+
+.edit__btn, .delete__btn{
+    width: 50px;
+    height: 50px;
+    color: white;
+    opacity: 0.7;
+    margin: auto;
+    font-size: 1.3rem;
+    text-align: center;
+    padding: 0.6rem;
+    cursor: pointer;
+    transition: all 0.1s ease-in-out;
+}
+
+.edit__btn:hover, .delete__btn:hover{
+    color: tomato;
+    opacity: 1;
+}
+
+.text{
+    font-size: 1.5rem;
+    color: white;
+    opacity: 1;
+    font-weight: 700;
+    pointer-events: none;
+}
+
+.text:focus{
+    border: solid 1px tomato;
+    border-radius: 15px;
+    padding: 0.5rem;
+    pointer-events: all;
+}

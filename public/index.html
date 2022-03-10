@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <!-- <script src="../index.js"></script> -->
+    <script src="main.js"></script>
+    <script src="https://kit.fontawesome.com/0bfe678821.js" crossorigin="anonymous"></script>
+    <title>Game Tracker</title>
+</head>
+<body>
+    <header>
+        <section>
+            <h1 class="header__title">Lista de juegos</h1>
+            <h2 class="header__sub">2022</h2>
+            <div class="login__row">
+                <a href="http://localhost:3000/api/auth/steam" class="login">Connect Steam  <i class="fa-brands fa-steam"></i></a>
+                <a href="http://localhost:3000/api/auth/steam/logout" class="logout">Log Out  <i class="fa-solid fa-right-from-bracket"></i></a>
+            </div>
+        </section>
+        <form id="new-game" action="">
+            <input type="text" name="new-game-name" id="new-game-name" placeholder="Nuevo juego" autocomplete="off">
+            <input type="submit" id="new-game-submit" value="Agregar">
+            <div id="new-game-list"></div>
+        </form>
+    </header>
+    <main>
+        <section class="pending card__container" id="pending">
+            <h2 class="pending__title" id="pending__title">PENDIENTES - <span>0</span></h2>
+            <!-- <article class="card" id="">
+                <i class="fa-solid fa-check card__status"></i>
+                <div class="card__row">
+                    <div class="card__data">
+                        <input type="text" class="text" value="Card Title" readonly>
+                        <p class="card__para">12.2 Hs - 8/75 Logros</p>
+                    </div>
+                    <div class="card__btns">
+                        <i class="fa-solid fa-pencil edit__btn"></i>
+                        <i class="fa-solid fa-trash delete__btn"></i>
+                    </div>
+                </div>
+            </article> -->
+        </section>
+
+        <section class="completed card__container" id="completed">
+            <h2 class="completed__title" id="completed__title">COMPLETADOS - <span>0</span></h2>
+        </section>
+    </main>
+</body>
+</html>
