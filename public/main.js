@@ -1,5 +1,6 @@
 // WAIT FOR PAGE TO LOAD BEFORE EXECUTING JS
 window.addEventListener('load', () => {
+    if(JSON.parse(localStorage.getItem("cards")) == undefined) localStorage.setItem("cards", JSON.stringify([]));
     const form = document.querySelector("#new-game");
     const input = document.querySelector("#new-game-name");
     const pending__list = document.querySelector("#pending");
@@ -15,7 +16,6 @@ window.addEventListener('load', () => {
     let gameList = [];
     let ALLGAMELIST = false;
     let STEAMID;
-    if(localStorage.getItem("cards") == undefined) localStorage.setItem("cards", JSON.stringify([]));
 
     const req = new XMLHttpRequest();
     let url = "https://gametracker-js.herokuapp.com/steamid";
