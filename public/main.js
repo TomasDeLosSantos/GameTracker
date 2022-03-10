@@ -15,7 +15,7 @@ window.addEventListener('load', () => {
     let gameList = [];
     let ALLGAMELIST = false;
     let STEAMID;
-
+    if(localStorage.getItem("cards") == undefined) localStorage.setItem("cards", []);
 
     const req = new XMLHttpRequest();
     let url = "https://gametracker-js.herokuapp.com/steamid";
