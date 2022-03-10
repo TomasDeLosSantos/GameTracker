@@ -8,7 +8,7 @@ const request = require("express/lib/request");
 const port = 3000;
 const axios = require("axios");
 const app = express();
-const steamKey = "92A6C77ECC778345E6C193672F58BD35";
+const steamKey = "4A57350D70C49DC19EA482CFFF7396B2";
 let USERID = "ACCOUNT NOT CONNECTED";
 
 /* STEAM AUTH  */
@@ -28,8 +28,8 @@ passport.deserializeUser((user, done) => {
 });
 // Initiate Strategy
 passport.use(new SteamStrategy({
-    returnURL: 'http://localhost:' + port + '/api/auth/steam/return',
-    realm: 'http://localhost:' + port + '/',
+    returnURL: 'https://gametracker-js.vercel.app/api/auth/steam/return',
+    realm: 'https://gametracker-js.vercel.app/',
     apiKey: steamKey
 }, function (identifier, profile, done) {
     process.nextTick(function () {

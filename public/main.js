@@ -18,7 +18,7 @@ window.addEventListener('load', () => {
 
 
     const req = new XMLHttpRequest();
-    let url = "http://localhost:3000/steamid";
+    let url = "https://gametracker-js.vercel.app/steamid";
     req.open("GET", url, true);
     req.addEventListener("load", () => {
         if (req.status >= 200 && req.status < 400) {
@@ -44,7 +44,7 @@ window.addEventListener('load', () => {
     // get user achievements completion (for each appid¿)
     function getUserGames(steamuid) {
         const req = new XMLHttpRequest();
-        let url = "http://localhost:3000/userGames/?steamuid=" + steamuid;
+        let url = "https://gametracker-js.vercel.app/userGames/?steamuid=" + steamuid;
         req.open("GET", url, true);
         req.addEventListener("load", () => {
             if (req.status >= 200 && req.status < 400) {
@@ -59,7 +59,7 @@ window.addEventListener('load', () => {
 
     function getAllGames() {
         const req = new XMLHttpRequest();
-        let url = "http://localhost:3000/allGames";
+        let url = "https://gametracker-js.vercel.app/allGames";
         req.open("GET", url, true);
         req.addEventListener("load", () => {
             if (req.status >= 200 && req.status < 400) {
@@ -83,7 +83,7 @@ window.addEventListener('load', () => {
 
     function getGameAchievements(appid, game) {
         const req = new XMLHttpRequest();
-        let url = "http://localhost:3000/gameAchievements/?appid=" + appid;
+        let url = "https://gametracker-js.vercel.app/gameAchievements/?appid=" + appid;
         req.open("GET", url, true);
         req.addEventListener("load", () => {
             if (req.status >= 200 && req.status < 400) {
@@ -103,7 +103,7 @@ window.addEventListener('load', () => {
     function userCompletion(appid, game) {
         return new Promise((resolve) => {
             const req = new XMLHttpRequest();
-            let url = "http://localhost:3000/userAchievements/?appid=" + appid + "&steamuid=" + STEAMID;
+            let url = "https://gametracker-js.vercel.app/userAchievements/?appid=" + appid + "&steamuid=" + STEAMID;
             req.open("GET", url, true);
             req.addEventListener("load", () => {
                 if (req.status >= 200 && req.status < 400) {
