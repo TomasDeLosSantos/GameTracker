@@ -200,11 +200,11 @@ window.addEventListener('load', () => {
         row.appendChild(data);
         const btns = document.createElement("div");
         btns.classList.add("card__btns");
-        const edit = document.createElement("i");
-        edit.classList.add("fa-solid", "fa-pencil", "edit__btn");
+        // const edit = document.createElement("i");
+        // edit.classList.add("fa-solid", "fa-pencil", "edit__btn");
         const del = document.createElement("i");
         del.classList.add("fa-solid", "fa-trash", "delete__btn");
-        btns.appendChild(edit);
+        //btns.appendChild(edit);
         btns.appendChild(del);
         row.appendChild(btns);
         newCard.appendChild(row);
@@ -277,6 +277,7 @@ window.addEventListener('load', () => {
     pending__title.querySelector("span").innerText = pending__list.querySelectorAll(".card").length;
     completed__title.querySelector("span").innerText = completed__list.querySelectorAll(".card").length;
 
+
     form.addEventListener("submit", (e) => {
         e.preventDefault();
         const game = input.value;
@@ -285,6 +286,16 @@ window.addEventListener('load', () => {
         save();
         form.reset();
     });
+
+    const login__btn = document.querySelector(".login");
+    const logout__btn = document.querySelector(".logout");
+    if(JSON.parse(localStorage.getItem("STEAMID")) != "ACCOUNT NOT DETECTED"){
+        login__btn.style.display = "none"
+        logout__btn.style.display = "block";
+    } else{
+        login__btn.style.display = "block"
+        logout__btn.style.display = "none";
+    }
 
     const new_game_list = document.querySelector("#new-game-list");
 

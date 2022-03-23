@@ -126,13 +126,13 @@ form input, input{
 #new-game-list > h2:hover{
     background-color: #20212C;
 }
-.login__row{
+/* .login__row{
     display: flex;
     justify-content: center;
     align-content: center;
     margin-top: 1rem;
-}
-.login{
+} */
+.login, .logout{
     background-color: #20212C;
     color: tomato;
     opacity: 0.6;
@@ -142,12 +142,13 @@ form input, input{
     font-weight: 600;
     text-decoration: none;
     transition: all 0.3s;
+    width: fit-content;
 }
-.login:hover{
+.login:hover, .logout:hover{
     background-color: #2e2f3d;
     opacity: 1;
 }
-.logout{
+/* .logout{
     color: tomato;
     opacity: 0.6;
     text-decoration: none;
@@ -158,7 +159,7 @@ form input, input{
 }
 .logout:hover{
     opacity: 1;
-}
+} */
 
 .header__title{
     color: white;
