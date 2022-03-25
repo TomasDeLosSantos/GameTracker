@@ -7,6 +7,8 @@ window.addEventListener('load', () => {
     const pending__title = document.querySelector("#pending__title");
     const completed__list = document.querySelector("#completed");
     const completed__title = document.querySelector("#completed__title");
+    const login__btn = document.querySelector(".login");
+    const logout__btn = document.querySelector(".logout");
     const signIn = document.querySelector(".header__link");
     let card__array = [];
     let today = new Date();
@@ -17,8 +19,19 @@ window.addEventListener('load', () => {
     let ALLGAMELIST = false;
     let STEAMID;
 
+
+    // fetch("gameList.json")
+    //     .then(response => {
+    //         return response.json();
+    //     })
+    //     .then(data => {
+    //         console.log(data.applist.apps);
+    //     });
+
+
+
     const req = new XMLHttpRequest();
-    let url = "https://gametracker-js.herokuapp.com/steamid";
+    let url = "http://localhost:3000/steamid";
     req.open("GET", url, true);
     req.addEventListener("load", () => {
         if (req.status >= 200 && req.status < 400) {
@@ -26,10 +39,14 @@ window.addEventListener('load', () => {
             if (req.response != "ACCOUNT NOT CONNECTED") {
                 localStorage.setItem("STEAMID", JSON.stringify(req.response));
                 STEAMID = req.response;
+                login__btn.style.display = "none"
+                logout__btn.style.display = "block";
                 getUserGames(STEAMID);
             } else {
                 localStorage.setItem("STEAMID", JSON.stringify(req.response));
                 STEAMID = req.response;
+                login__btn.style.display = "block"
+                logout__btn.style.display = "none";
                 ALLGAMELIST = false;
                 load();
             }
@@ -44,7 +61,7 @@ window.addEventListener('load', () => {
     // get user achievements completion (for each appid¿)
     function getUserGames(steamuid) {
         const req = new XMLHttpRequest();
-        let url = "https://gametracker-js.herokuapp.com/userGames/?steamuid=" + steamuid;
+        let url = "http://localhost:3000/userGames/?steamuid=" + steamuid;
         req.open("GET", url, true);
         req.addEventListener("load", () => {
             if (req.status >= 200 && req.status < 400) {
@@ -58,12 +75,13 @@ window.addEventListener('load', () => {
     }
 
     function getAllGames() {
-        const req = new XMLHttpRequest();
-        let url = "https://gametracker-js.herokuapp.com/allGames";
-        req.open("GET", url, true);
-        req.addEventListener("load", () => {
-            if (req.status >= 200 && req.status < 400) {
-                gameList = JSON.parse(req.responseText);
+        fetch("gameList.json")
+            .then(response => {
+                return response.json();
+            })
+            .then(data => {
+                //console.log(data.applist.apps);
+                gameList = data.applist.apps;
                 for (let game of userGames) {
                     const gam = gameList.find(g => g.appid == game.appid);
                     if (gameList.some(g => g.appid == game.appid)) {
@@ -72,18 +90,18 @@ window.addEventListener('load', () => {
                     getGameAchievements(game.appid, game);
                 }
                 //console.log(userGames);
+                //console.log(gameList);
                 ALLGAMELIST = true;
                 load();
-            } else {
-                console.log("Error in network request: " + req.statusText);
-            }
-        });
-        req.send(null);
+            })
+            .catch( (e) => {
+                console.log("Error in network request: " + e);
+            });
     }
 
     function getGameAchievements(appid, game) {
         const req = new XMLHttpRequest();
-        let url = "https://gametracker-js.herokuapp.com/gameAchievements/?appid=" + appid;
+        let url = "http://localhost:3000/gameAchievements/?appid=" + appid;
         req.open("GET", url, true);
         req.addEventListener("load", () => {
             if (req.status >= 200 && req.status < 400) {
@@ -103,7 +121,7 @@ window.addEventListener('load', () => {
     function userCompletion(appid, game) {
         return new Promise((resolve) => {
             const req = new XMLHttpRequest();
-            let url = "https://gametracker-js.herokuapp.com/userAchievements/?appid=" + appid + "&steamuid=" + STEAMID;
+            let url = "http://localhost:3000/userAchievements/?appid=" + appid + "&steamuid=" + STEAMID;
             req.open("GET", url, true);
             req.addEventListener("load", () => {
                 if (req.status >= 200 && req.status < 400) {
@@ -302,38 +320,34 @@ window.addEventListener('load', () => {
     const searchGame = (game) => {
         const regex = new RegExp(`^${game}`, "gi");
         let matches = userGames.filter(g => g.name != undefined && g.name.match(regex));
-        if (game.length == 0) {
-            matches = [];
-            let child = new_game_list.lastElementChild;
-            new_game_list.style.visibility = "hidden";
-            while (child) {
-                new_game_list.removeChild(child);
-                child = new_game_list.lastElementChild;
-            }
-        }
-        if (input === document.activeElement) {
-            showMatches(matches);
+        if (input === document.activeElement || form === document.activeElement) {
             new_game_list.style.visibility = "visible";
-        } else {
-            new_game_list.style.visibility = "hidden";
+            showMatches(matches);
         }
     };
 
     const showMatches = (matches) => {
-        if (matches.length > 0) {
-            let child = new_game_list.lastElementChild;
-            while (child) {
-                new_game_list.removeChild(child);
-                child = new_game_list.lastElementChild;
+        if(ALLGAMELIST){
+            if (matches.length > 0) {
+                let child = new_game_list.lastElementChild;
+                while (child) {
+                    new_game_list.removeChild(child);
+                    child = new_game_list.lastElementChild;
+                }
+                for (let m of matches) {
+                    const match = document.createElement("h2");
+                    match.classList.add("input__match");
+                    match.innerText = m.name;
+                    new_game_list.appendChild(match);
+                }
+            } else {
+                for (let g of userGames) {
+                    const match = document.createElement("h2");
+                    match.classList.add("input__match");
+                    match.innerText = g.name;
+                    new_game_list.appendChild(match);
+                }
             }
-            for (let m of matches) {
-                const match = document.createElement("h2");
-                match.classList.add("input__match");
-                match.innerText = m.name;
-                new_game_list.appendChild(match);
-            }
-        } else {
-            new_game_list.style.visibility = "hidden";
         }
     }
 
@@ -345,26 +359,19 @@ window.addEventListener('load', () => {
             addGame();
             save();
         }
-        if (e.target && e.target.matches("i.edit__btn")) {
-            const gameName = e.target.parentElement.parentElement.querySelector(".text");
-            if (e.target.classList.contains("fa-pencil")) {
-                e.target.classList.replace("fa-pencil", "fa-check");
-                gameName.removeAttribute("readonly");
-                gameName.focus();
-            } else {
-                e.target.classList.replace("fa-check", "fa-pencil");
-                gameName.setAttribute("readonly", "readonly");
-                save();
-            }
-        }
         if (e.target && e.target.matches("h2.input__match")) {
-            //console.log(e.target.innerText);
             input.value = e.target.innerText;
             new_game_list.style.visibility = "hidden";
-
+            pending__list.appendChild(createCard(input.value));
+            addGame();
+            save();
+            form.reset();
         }
         if (e.target && !(e.target.matches("form") || e.target.matches("input#new-game-name") || e.target.matches("input#new-game-submit") || e.target.matches("div#new-game-list"))) {
             new_game_list.style.visibility = "hidden";
+        } else{
+            new_game_list.style.visibility = "visible";
+            searchGame();
         }
     });
 
