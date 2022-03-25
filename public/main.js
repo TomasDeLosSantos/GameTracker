@@ -19,17 +19,6 @@ window.addEventListener('load', () => {
     let ALLGAMELIST = false;
     let STEAMID;
 
-
-    // fetch("gameList.json")
-    //     .then(response => {
-    //         return response.json();
-    //     })
-    //     .then(data => {
-    //         console.log(data.applist.apps);
-    //     });
-
-
-
     const req = new XMLHttpRequest();
     let url = "http://localhost:3000/steamid";
     req.open("GET", url, true);
@@ -304,17 +293,7 @@ window.addEventListener('load', () => {
         save();
         form.reset();
     });
-
-    // const login__btn = document.querySelector(".login");
-    // const logout__btn = document.querySelector(".logout");
-    // if(JSON.parse(localStorage.getItem("STEAMID")) != "ACCOUNT NOT DETECTED"){
-    //     login__btn.style.display = "none"
-    //     logout__btn.style.display = "block";
-    // } else{
-    //     login__btn.style.display = "block"
-    //     logout__btn.style.display = "none";
-    // }
-
+    
     const new_game_list = document.querySelector("#new-game-list");
 
     const searchGame = (game) => {
