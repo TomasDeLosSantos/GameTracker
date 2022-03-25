@@ -8,7 +8,7 @@ const request = require("express/lib/request");
 const port = 3000;
 const axios = require("axios");
 const app = express();
-const steamKey = "184AA3938FF9AA7A931C34BFC8738580";
+const steamKey = "260792B114261C33F011D5D56DF4BCEC";
 let USERID = "ACCOUNT NOT CONNECTED";
 
 /* STEAM AUTH  */
@@ -28,8 +28,8 @@ passport.deserializeUser((user, done) => {
 });
 // Initiate Strategy
 passport.use(new SteamStrategy({
-    returnURL: 'https://localhost:3000/api/auth/steam/return',
-    realm: 'https://localhost:3000/',
+    returnURL: 'http://localhost:3000/api/auth/steam/return',
+    realm: 'http://localhost:3000/',
     apiKey: steamKey
 }, function (identifier, profile, done) {
     process.nextTick(function () {
@@ -119,13 +119,10 @@ app.get('/', (req, res) => {
 });
 
 // IF LOGGED IN, SENDS USER STEAMID, OTHERWISE "ACCOUNT NOT CONNECTED"
-// app.get("/steamid", (req,res) => {
-//     res.send(USERID);
-// })
-
-axios.get("/steamid", (req,res) => {
+app.get("/steamid", (req,res) => {
     res.send(USERID);
 });
+
 
 // USER LOGGED OUT, USERID = "ACCOUNT NOT CONNECTED"
 app.get('/api/auth/steam/logout', function(req, res){
