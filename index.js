@@ -94,13 +94,16 @@ app.get("/gameAchievements", (req, res) => {
 });
 
 // GET A LIST WITH ALL GAMES IN STEAM APP (PENDING TO MAKE THIS FILE LOCAL)
-app.get("/allGames", (req, res) => {
-    axios.get("https://api.steampowered.com/ISteamApps/GetAppList/v2/")
-        .then((response) => {
-            res.send(response.data.applist.apps);
-        })
-        .catch((error) => console.log(error));
-});
+
+// THIS FUNCTION WAS REPLACED BY USING GAMELIST.JSONS
+
+// app.get("/allGames", (req, res) => {
+//     axios.get("https://api.steampowered.com/ISteamApps/GetAppList/v2/")
+//         .then((response) => {
+//             res.send(response.data.applist.apps);
+//         })
+//         .catch((error) => console.log(error));
+// });
 
 // STARTS STEAM AUTHENTICATION PROCESS
 app.get("/api/auth/steam", passport.authenticate("steam"), function(req,res){});
@@ -122,7 +125,6 @@ app.get('/', (req, res) => {
 app.get("/steamid", (req,res) => {
     res.send(USERID);
 });
-
 
 // USER LOGGED OUT, USERID = "ACCOUNT NOT CONNECTED"
 app.get('/api/auth/steam/logout', function(req, res){

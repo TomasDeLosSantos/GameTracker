@@ -19,11 +19,16 @@ window.addEventListener('load', () => {
     let ALLGAMELIST = false;
     let STEAMID;
 
-    // if(JSON.parse(localStorage.getItem("STEAMID")) != "ACCOUNT NOT CONNECTED"){
-        
-    // } else{
-        
-    // }
+
+    // fetch("gameList.json")
+    //     .then(response => {
+    //         return response.json();
+    //     })
+    //     .then(data => {
+    //         console.log(data.applist.apps);
+    //     });
+
+
 
     const req = new XMLHttpRequest();
     let url = "http://localhost:3000/steamid";
@@ -70,12 +75,13 @@ window.addEventListener('load', () => {
     }
 
     function getAllGames() {
-        const req = new XMLHttpRequest();
-        let url = "http://localhost:3000/allGames";
-        req.open("GET", url, true);
-        req.addEventListener("load", () => {
-            if (req.status >= 200 && req.status < 400) {
-                gameList = JSON.parse(req.responseText);
+        fetch("gameList.json")
+            .then(response => {
+                return response.json();
+            })
+            .then(data => {
+                //console.log(data.applist.apps);
+                gameList = data.applist.apps;
                 for (let game of userGames) {
                     const gam = gameList.find(g => g.appid == game.appid);
                     if (gameList.some(g => g.appid == game.appid)) {
@@ -84,13 +90,13 @@ window.addEventListener('load', () => {
                     getGameAchievements(game.appid, game);
                 }
                 //console.log(userGames);
+                //console.log(gameList);
                 ALLGAMELIST = true;
                 load();
-            } else {
-                console.log("Error in network request: " + req.statusText);
-            }
-        });
-        req.send(null);
+            })
+            .catch( (e) => {
+                console.log("Error in network request: " + e);
+            });
     }
 
     function getGameAchievements(appid, game) {

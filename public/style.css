@@ -108,7 +108,7 @@ form input, input{
     border: solid 1px tomato;
     border-radius: 15px;
     padding: 0.2rem;
-    height: 50vh;
+    max-height: 50vh;
     overflow-y: scroll;
     overflow-x: hidden;
 }
