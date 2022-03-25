@@ -8,7 +8,7 @@ const request = require("express/lib/request");
 const port = 3000;
 const axios = require("axios");
 const app = express();
-const steamKey = "4A57350D70C49DC19EA482CFFF7396B2";
+const steamKey = "F8D5BD976079D75C73B94D7EC061CFF0s";
 let USERID = "ACCOUNT NOT CONNECTED";
 
 /* STEAM AUTH  */
