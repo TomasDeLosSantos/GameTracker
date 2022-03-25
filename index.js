@@ -33,8 +33,8 @@ passport.use(new SteamStrategy({
     apiKey: steamKey
 }, function (identifier, profile, done) {
     process.nextTick(function () {
-        USERID = profile._json.steamid;
         profile.identifier = identifier;
+        USERID = profile._json.steamid;
         return done(null, profile);
     });
 }
