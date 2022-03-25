@@ -18,7 +18,7 @@ window.addEventListener('load', () => {
     let STEAMID;
 
     const req = new XMLHttpRequest();
-    let url = "https://gametracker-js.herokuapp.com/steamid";
+    let url = "https://localhost:3000/steamid";
     req.open("GET", url, true);
     req.addEventListener("load", () => {
         if (req.status >= 200 && req.status < 400) {
@@ -44,7 +44,7 @@ window.addEventListener('load', () => {
     // get user achievements completion (for each appid¿)
     function getUserGames(steamuid) {
         const req = new XMLHttpRequest();
-        let url = "https://gametracker-js.herokuapp.com/userGames/?steamuid=" + steamuid;
+        let url = "https://localhost:3000/userGames/?steamuid=" + steamuid;
         req.open("GET", url, true);
         req.addEventListener("load", () => {
             if (req.status >= 200 && req.status < 400) {
@@ -59,7 +59,7 @@ window.addEventListener('load', () => {
 
     function getAllGames() {
         const req = new XMLHttpRequest();
-        let url = "https://gametracker-js.herokuapp.com/allGames";
+        let url = "https://localhost:3000/allGames";
         req.open("GET", url, true);
         req.addEventListener("load", () => {
             if (req.status >= 200 && req.status < 400) {
@@ -83,7 +83,7 @@ window.addEventListener('load', () => {
 
     function getGameAchievements(appid, game) {
         const req = new XMLHttpRequest();
-        let url = "https://gametracker-js.herokuapp.com/gameAchievements/?appid=" + appid;
+        let url = "https://localhost:3000/gameAchievements/?appid=" + appid;
         req.open("GET", url, true);
         req.addEventListener("load", () => {
             if (req.status >= 200 && req.status < 400) {
@@ -103,7 +103,7 @@ window.addEventListener('load', () => {
     function userCompletion(appid, game) {
         return new Promise((resolve) => {
             const req = new XMLHttpRequest();
-            let url = "https://gametracker-js.herokuapp.com/userAchievements/?appid=" + appid + "&steamuid=" + STEAMID;
+            let url = "https://localhost:3000/userAchievements/?appid=" + appid + "&steamuid=" + STEAMID;
             req.open("GET", url, true);
             req.addEventListener("load", () => {
                 if (req.status >= 200 && req.status < 400) {
@@ -289,7 +289,7 @@ window.addEventListener('load', () => {
 
     const login__btn = document.querySelector(".login");
     const logout__btn = document.querySelector(".logout");
-    if(JSON.parse(localStorage.getItem("STEAMID")) != "ACCOUNT NOT DETECTED"){
+    if(JSON.parse(localStorage.getItem("STEAMID")) != "ACCOUNT NOT CONNECTED"){
         login__btn.style.display = "none"
         logout__btn.style.display = "block";
     } else{
