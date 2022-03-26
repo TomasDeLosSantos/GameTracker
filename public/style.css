@@ -44,7 +44,8 @@ main{
 
 header{
     max-width: 800px;
-    margin: 1rem auto;
+    margin: 0rem auto 1rem auto;
+    padding-top: 1rem;
     display: flex;
     justify-content: space-between;
     align-items: center;

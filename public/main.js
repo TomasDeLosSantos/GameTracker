@@ -23,25 +23,24 @@ window.addEventListener('load', () => {
     let url = "http://localhost:3000/steamid";
     req.open("GET", url, true);
     req.addEventListener("load", () => {
-        if (req.status >= 200 && req.status < 400) {
-            //console.log(req.response);
-            if (req.response != "ACCOUNT NOT CONNECTED") {
-                localStorage.setItem("STEAMID", JSON.stringify(req.response));
-                STEAMID = req.response;
-                login__btn.style.display = "none"
-                logout__btn.style.display = "block";
-                getUserGames(STEAMID);
-            } else {
-                localStorage.setItem("STEAMID", JSON.stringify(req.response));
-                STEAMID = req.response;
-                login__btn.style.display = "block"
-                logout__btn.style.display = "none";
-                ALLGAMELIST = false;
-                load();
-            }
-        } else {
-            console.log("error");
-        }
+        req.status >= 200 && req.status < 400 ? (
+            req.response != "ACCOUNT NOT CONNECTED" ? (
+                localStorage.setItem("STEAMID", JSON.stringify(req.response)),
+                STEAMID = req.response,
+                login__btn.style.display = "none",
+                logout__btn.style.display = "block",
+                getUserGames(STEAMID)
+            ) : (
+                localStorage.setItem("STEAMID", JSON.stringify(req.response)),
+                STEAMID = req.response,
+                login__btn.style.display = "block",
+                logout__btn.style.display = "none",
+                ALLGAMELIST = false,
+                load()
+            )
+        ) : (
+            console.log("error")
+        );
     });
     req.send(null);
 
@@ -53,12 +52,10 @@ window.addEventListener('load', () => {
         let url = "http://localhost:3000/userGames/?steamuid=" + steamuid;
         req.open("GET", url, true);
         req.addEventListener("load", () => {
-            if (req.status >= 200 && req.status < 400) {
-                userGames = JSON.parse(req.responseText);
-                getAllGames();
-            } else {
-                console.log("Error in network request: " + req.statusText);
-            }
+            req.status >= 200 && req.status < 400 ? (
+                userGames = JSON.parse(req.responseText), 
+                getAllGames()
+            ) : console.log("Error in network request: " + req.statusText); 
         });
         req.send(null);
     }
@@ -78,8 +75,6 @@ window.addEventListener('load', () => {
                     }
                     getGameAchievements(game.appid, game);
                 }
-                //console.log(userGames);
-                //console.log(gameList);
                 ALLGAMELIST = true;
                 load();
             })
@@ -93,16 +88,9 @@ window.addEventListener('load', () => {
         let url = "http://localhost:3000/gameAchievements/?appid=" + appid;
         req.open("GET", url, true);
         req.addEventListener("load", () => {
-            if (req.status >= 200 && req.status < 400) {
-                let response = JSON.parse(req.responseText);
-                if (response.game.hasOwnProperty("availableGameStats")) {
-                    if (response.game.availableGameStats.hasOwnProperty("achievements")) {
-                        game.hasAchievements = true;
-                    }
-                }
-            } else {
-                console.log("error");
-            }
+            req.status >= 200 && req.status < 400 ? (
+                    JSON.parse(req.responseText).game.availableGameStats?.hasOwnProperty("achievements") ? game.hasAchievements = true : null
+            ) : console.log("error");
         });
         req.send(null);
     }
@@ -132,14 +120,8 @@ window.addEventListener('load', () => {
             req.send(null);
         });
     }
-
-    if (STEAMID == "ACCOUNT NOT CONNECTED" || STEAMID == 0 || STEAMID == undefined) {
-        load();
-    } else {
-        getUserGames(STEAMID);
-    }
-    // STEAM DATA
-
+    STEAMID == "ACCOUNT NOT CONNECTED" || STEAMID == 0 || STEAMID == undefined ? load() : getUserGames(STEAMID);
+    
     /*
         Esta función crea las cartas, cuya estructura HTML es:
         <article class="card">
@@ -207,15 +189,11 @@ window.addEventListener('load', () => {
         row.appendChild(data);
         const btns = document.createElement("div");
         btns.classList.add("card__btns");
-        // const edit = document.createElement("i");
-        // edit.classList.add("fa-solid", "fa-pencil", "edit__btn");
         const del = document.createElement("i");
         del.classList.add("fa-solid", "fa-trash", "delete__btn");
-        //btns.appendChild(edit);
         btns.appendChild(del);
         row.appendChild(btns);
         newCard.appendChild(row);
-        //save();
         return newCard;
     }
 
@@ -230,15 +208,9 @@ window.addEventListener('load', () => {
             const name = card.querySelector("input").value;
             const info = card.querySelector(".card__para").innerText;
             const completed = card.classList.contains("completed");
-            if (!(card__array.some(i => i.cardName == name))) {
-                card__array.push({ cardName: name, info: info, completed: completed });
-            } else {
-                if (completed) {
-                    card__array[card__array.findIndex(c => c.cardName == name)].completed = true;
-                } else {
-                    card__array[card__array.findIndex(c => c.cardName == name)].completed = false;
-                }
-            }
+            !(card__array.some(i => i.cardName == name)) ? card__array.push({ cardName: name, info: info, completed: completed }) : (
+                completed ? card__array[card__array.findIndex(c => c.cardName == name)].completed = true : card__array[card__array.findIndex(c => c.cardName == name)].completed = false
+            );
         }
         let noCardName = card__array.map((e) => {
             for (let i = 0; i < allCards.length; i++) {
@@ -270,12 +242,13 @@ window.addEventListener('load', () => {
         card__array = cards;
         if (cards != undefined) {
             for (let card of cards) {
-                if (card.completed) {
-                    const newCard = createCard(card.cardName, card.info, true);
+                let {cardName, info, completed} = card;
+                if (completed) {
+                    const newCard = createCard(cardName, info, true);
                     newCard.classList.add("completed");
                     completed__list.appendChild(newCard);
                 } else {
-                    pending__list.appendChild(createCard(card.cardName, card.info, false));
+                    pending__list.appendChild(createCard(cardName, info, false));
                 }
             }
         }
@@ -299,10 +272,10 @@ window.addEventListener('load', () => {
     const searchGame = (game) => {
         const regex = new RegExp(`^${game}`, "gi");
         let matches = userGames.filter(g => g.name != undefined && g.name.match(regex));
-        if (input === document.activeElement || form === document.activeElement) {
-            new_game_list.style.visibility = "visible";
-            showMatches(matches);
-        }
+        input === document.activeElement || form === document.activeElement ? (
+            new_game_list.style.visibility = "visible",
+            showMatches(matches)
+        ) : null;
     };
 
     const showMatches = (matches) => {
@@ -333,41 +306,35 @@ window.addEventListener('load', () => {
     input.addEventListener("input", () => searchGame(input.value));
 
     document.addEventListener("click", (e) => {
-        if (e.target && e.target.matches("i.delete__btn")) {
-            e.target.parentElement.parentElement.parentElement.remove();
-            addGame();
-            save();
-        }
-        if (e.target && e.target.matches("h2.input__match")) {
-            input.value = e.target.innerText;
-            new_game_list.style.visibility = "hidden";
-            pending__list.appendChild(createCard(input.value));
-            addGame();
-            save();
-            form.reset();
-        }
-        if (e.target && !(e.target.matches("form") || e.target.matches("input#new-game-name") || e.target.matches("input#new-game-submit") || e.target.matches("div#new-game-list"))) {
-            new_game_list.style.visibility = "hidden";
-        } else{
-            new_game_list.style.visibility = "visible";
-            searchGame();
-        }
+        e.target && e.target.matches("i.delete__btn") ? (
+            e.target.parentElement.parentElement.parentElement.remove(),
+            addGame(),
+            save()
+        ) : null;
+
+        e.target && e.target.matches("h2.input__match") ? (
+            input.value = e.target.innerText,
+            new_game_list.style.visibility = "hidden",
+            pending__list.appendChild(createCard(input.value)),
+            addGame(),
+            save(),
+            form.reset()
+        ) : null;
+
+        e.target && !(e.target.matches("form") || e.target.matches("input#new-game-name") || e.target.matches("input#new-game-submit") || e.target.matches("div#new-game-list")) ? new_game_list.style.visibility = "hidden" : (
+            new_game_list.style.visibility = "visible",
+            searchGame(input.value)
+        );
     });
 
     document.getElementById("pending").addEventListener("click", (e) => {
         if (e.target && e.target.matches("i.card__status")) {
             if (!e.target.parentElement.classList.contains("completed")) {
                 e.target.parentElement.classList.add("completed");
-                //console.log(card__array.find(c => c.cardName == e.target.parentElement.querySelector(".text").value));
                 let i = card__array.findIndex(c => c.cardName == e.target.parentElement.querySelector(".text").value);
                 let card = card__array[i];
                 let completionDate = today.getDate() + "/" + (today.getMonth() + 1) + "/" + today.getFullYear();
-                if (!card.hasOwnProperty("date")) {
-                    card.date = completionDate;
-                } else {
-                    completionDate = card.date;
-                }
-                //console.log(card);
+                !card.hasOwnProperty("date") ? card.date = completionDate : completionDate = card.date;
                 e.target.parentElement.querySelector(".card__para").innerText += " | Completado el " + completionDate;
                 completed__list.appendChild(e.target.parentElement);
                 addGame();
@@ -377,14 +344,14 @@ window.addEventListener('load', () => {
     });
 
     document.getElementById("completed").addEventListener("click", (e) => {
-        if (e.target && e.target.matches("i.card__status")) {
-            if (e.target.parentElement.classList.contains("completed")) {
-                e.target.parentElement.classList.remove("completed");
-                e.target.parentElement.querySelector(".card__para").innerText = e.target.parentElement.querySelector(".card__para").innerText.split("|")[0];
-                pending__list.appendChild(e.target.parentElement);
-                addGame();
-                save();
-            }
-        }
+        e.target && e.target.matches("i.card__status") ? (
+            e.target.parentElement.classList.contains("completed") ? (
+                e.target.parentElement.classList.remove("completed"),
+                e.target.parentElement.querySelector(".card__para").innerText = e.target.parentElement.querySelector(".card__para").innerText.split("|")[0],
+                pending__list.appendChild(e.target.parentElement),
+                addGame(),
+                save()
+            ) : null
+        ) : null;
     });
 });
