@@ -8,7 +8,7 @@ const request = require("express/lib/request");
 const port = 3000;
 const axios = require("axios");
 const app = express();
-const steamKey = "260792B114261C33F011D5D56DF4BCEC";
+const steamKey = "B0FCE1C50A1348995ACC8ADEFCEDFA0F";
 let USERID = "ACCOUNT NOT CONNECTED";
 
 /* STEAM AUTH  */
@@ -28,8 +28,8 @@ passport.deserializeUser((user, done) => {
 });
 // Initiate Strategy
 passport.use(new SteamStrategy({
-    returnURL: 'http://localhost:3000/api/auth/steam/return',
-    realm: 'http://localhost:3000/',
+    returnURL: 'https://gametracker-js.herokuapp.com/api/auth/steam/return',
+    realm: 'https://gametracker-js.herokuapp.com/',
     apiKey: steamKey
 }, function (identifier, profile, done) {
     process.nextTick(function () {
