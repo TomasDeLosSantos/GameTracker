@@ -31,6 +31,15 @@ window.addEventListener('load', () => {
                 STEAMID = req.response,
                 login__btn.style.display = "none",
                 logout__btn.style.display = "block",
+                Swal.fire({
+                    toast: true,
+                    position: 'top-end',
+                    color: "#17181F",
+                    icon: 'success',
+                    title: 'Cuenta conectada correctamente',
+                    showConfirmButton: false,
+                    timer: 3000
+                }),
                 getUserGames(STEAMID)
             ) : (
                 localStorage.setItem("STEAMID", JSON.stringify(req.response)),
@@ -38,6 +47,16 @@ window.addEventListener('load', () => {
                 login__btn.style.display = "block",
                 logout__btn.style.display = "none",
                 ALLGAMELIST = false,
+                Swal.fire({
+                    toast: true,
+                    position: 'top-end',
+                    color: "#17181F",
+                    icon: 'warning',
+                    iconColor: "tomato",
+                    title: 'Su cuenta de Steam no está conectada',
+                    showConfirmButton: false,
+                    timer: 3000
+                }),
                 load()
             )
         ) : (
@@ -122,30 +141,7 @@ window.addEventListener('load', () => {
             req.send(null);
         });
     }
-    STEAMID == "ACCOUNT NOT CONNECTED" || STEAMID == 0 || STEAMID == undefined ? (
-        Swal.fire({
-            toast: true,
-            position: 'top-end',
-            color: "#17181F",
-            icon: 'warning',
-            iconColor: "tomato",
-            title: 'Su cuenta de Steam no está conectada',
-            showConfirmButton: false,
-            timer: 3000
-        }),
-        load()
-    ) : (
-        Swal.fire({
-            toast: true,
-            position: 'top-end',
-            color: "#17181F",
-            icon: 'success',
-            title: 'Cuenta conectada correctamente',
-            showConfirmButton: false,
-            timer: 3000
-        }),
-        getUserGames(STEAMID)
-    );
+    STEAMID == "ACCOUNT NOT CONNECTED" || STEAMID == 0 || STEAMID == undefined ? load() : getUserGames(STEAMID);
 
     /*
         Esta función crea las cartas, cuya estructura HTML es:
