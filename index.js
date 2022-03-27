@@ -11,6 +11,7 @@ const app = express();
 const steamKey = "B0FCE1C50A1348995ACC8ADEFCEDFA0F";
 let USERID = "ACCOUNT NOT CONNECTED";
 
+    
 /* STEAM AUTH  */
 app.use(express.static("public"));
 
@@ -95,7 +96,7 @@ app.get("/gameAchievements", (req, res) => {
 
 // GET A LIST WITH ALL GAMES IN STEAM APP (PENDING TO MAKE THIS FILE LOCAL)
 
-// THIS FUNCTION WAS REPLACED BY USING GAMELIST.JSONS
+// THIS FUNCTION WAS REPLACED BY USING GAMELIST.JSON
 
 // app.get("/allGames", (req, res) => {
 //     axios.get("https://api.steampowered.com/ISteamApps/GetAppList/v2/")

@@ -1,6 +1,7 @@
 // WAIT FOR PAGE TO LOAD BEFORE EXECUTING JS
 window.addEventListener('load', () => {
-    if(JSON.parse(localStorage.getItem("cards")) == undefined) localStorage.setItem("cards", JSON.stringify([]));
+
+    if (JSON.parse(localStorage.getItem("cards")) == undefined) localStorage.setItem("cards", JSON.stringify([]));
     const form = document.querySelector("#new-game");
     const input = document.querySelector("#new-game-name");
     const pending__list = document.querySelector("#pending");
@@ -18,6 +19,7 @@ window.addEventListener('load', () => {
     let gameList = [];
     let ALLGAMELIST = false;
     let STEAMID;
+
 
     const req = new XMLHttpRequest();
     let url = "https://gametracker-js.herokuapp.com/steamid";
@@ -53,9 +55,9 @@ window.addEventListener('load', () => {
         req.open("GET", url, true);
         req.addEventListener("load", () => {
             req.status >= 200 && req.status < 400 ? (
-                userGames = JSON.parse(req.responseText), 
+                userGames = JSON.parse(req.responseText),
                 getAllGames()
-            ) : console.log("Error in network request: " + req.statusText); 
+            ) : console.log("Error in network request: " + req.statusText);
         });
         req.send(null);
     }
@@ -78,7 +80,7 @@ window.addEventListener('load', () => {
                 ALLGAMELIST = true;
                 load();
             })
-            .catch( (e) => {
+            .catch((e) => {
                 console.log("Error in network request: " + e);
             });
     }
@@ -89,7 +91,7 @@ window.addEventListener('load', () => {
         req.open("GET", url, true);
         req.addEventListener("load", () => {
             req.status >= 200 && req.status < 400 ? (
-                    JSON.parse(req.responseText).game.availableGameStats?.hasOwnProperty("achievements") ? game.hasAchievements = true : null
+                JSON.parse(req.responseText).game.availableGameStats?.hasOwnProperty("achievements") ? game.hasAchievements = true : null
             ) : console.log("error");
         });
         req.send(null);
@@ -120,8 +122,31 @@ window.addEventListener('load', () => {
             req.send(null);
         });
     }
-    STEAMID == "ACCOUNT NOT CONNECTED" || STEAMID == 0 || STEAMID == undefined ? load() : getUserGames(STEAMID);
-    
+    STEAMID == "ACCOUNT NOT CONNECTED" || STEAMID == 0 || STEAMID == undefined ? (
+        Swal.fire({
+            toast: true,
+            position: 'top-end',
+            color: "#17181F",
+            icon: 'warning',
+            iconColor: "tomato",
+            title: 'Su cuenta de Steam no está conectada',
+            showConfirmButton: false,
+            timer: 3000
+        }),
+        load()
+    ) : (
+        Swal.fire({
+            toast: true,
+            position: 'top-end',
+            color: "#17181F",
+            icon: 'success',
+            title: 'Cuenta conectada correctamente',
+            showConfirmButton: false,
+            timer: 3000
+        }),
+        getUserGames(STEAMID)
+    );
+
     /*
         Esta función crea las cartas, cuya estructura HTML es:
         <article class="card">
@@ -242,7 +267,7 @@ window.addEventListener('load', () => {
         card__array = cards;
         if (cards != undefined) {
             for (let card of cards) {
-                let {cardName, info, completed} = card;
+                let { cardName, info, completed } = card;
                 if (completed) {
                     const newCard = createCard(cardName, info, true);
                     newCard.classList.add("completed");
@@ -266,7 +291,7 @@ window.addEventListener('load', () => {
         save();
         form.reset();
     });
-    
+
     const new_game_list = document.querySelector("#new-game-list");
 
     const searchGame = (game) => {
@@ -279,7 +304,7 @@ window.addEventListener('load', () => {
     };
 
     const showMatches = (matches) => {
-        if(ALLGAMELIST){
+        if (ALLGAMELIST) {
             if (matches.length > 0) {
                 let child = new_game_list.lastElementChild;
                 while (child) {
@@ -307,9 +332,34 @@ window.addEventListener('load', () => {
 
     document.addEventListener("click", (e) => {
         e.target && e.target.matches("i.delete__btn") ? (
-            e.target.parentElement.parentElement.parentElement.remove(),
-            addGame(),
-            save()
+            Swal.fire({
+                title: 'Estás a punto de eliminar el juego de la lista',
+                text: "No se puede revertir!",
+                icon: 'warning',
+                color: "#fff",
+                iconColor: "tomato",
+                background: "#17181F",
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#20212C',
+                cancelButtonText: "Cancelar",
+                confirmButtonText: 'Borrar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    e.target.parentElement.parentElement.parentElement.remove();
+                    addGame();
+                    save();
+                    Swal.fire({
+                        title: 'Listo!',
+                        text: 'El juego se eliminó con éxito.',
+                        icon: 'success',
+                        color: "#fff",
+                        background: "#17181F",
+                        confirmButtonColor: "#42533e"
+
+                    });
+                }
+            })
         ) : null;
 
         e.target && e.target.matches("h2.input__match") ? (

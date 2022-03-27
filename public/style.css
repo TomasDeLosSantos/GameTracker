@@ -152,6 +152,9 @@ form input, input{
     background-color: #2e2f3d;
     opacity: 1;
 }
+.logout{
+    display: none;
+}
 /* .logout{
     color: tomato;
     opacity: 0.6;
@@ -173,6 +176,7 @@ form input, input{
 .header__sub{
     color: white;
     font-size: 1.8rem;
+    margin-bottom: 1rem;
 }
 
 .header__link{
