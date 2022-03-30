@@ -6,6 +6,10 @@
 
 * {
     margin: 0;
+    --bodytext-fs: 16px;
+    --headings-fs: 21px;
+    --subheadings-fs: 18px;
+    --cardtitle-fs: 16px;
 }
 
 html, body {
@@ -49,9 +53,20 @@ header{
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
+}
+
+header > section{
+    margin: 0rem 1rem;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 form{
+    margin: 1rem;
+    width: 100%;
     display: flex;
     justify-content: space-between;
 }
@@ -75,19 +90,19 @@ form input, input{
     border-radius: 30px;
     padding: 0.5rem 1rem;
     margin-right: 1rem;
-    font-size: 1rem;
+    font-size: var(--bodytext-fs);
     color: tomato;
 }
 
 #new-game-name::placeholder{
     color: tomato;
-    font-size: 1rem;
+    font-size: var(--bodytext-fs);
 }
 
 
 #new-game-submit{
     color: tomato;
-    font-size: 1rem;
+    font-size: var(--bodytext-fs);
     cursor: pointer;
     transition: 0.2s;
 }
@@ -123,7 +138,7 @@ form input, input{
     margin: 0.2rem;
     padding: 0.3rem;
     padding-left: 0.5rem;
-    font-size: 1rem;
+    font-size: var(--bodytext-fs);
     font-weight: 500;
     cursor: pointer;
 }
@@ -142,7 +157,7 @@ form input, input{
     opacity: 0.6;
     padding: 0.3rem 0.6rem;
     border-radius: 15px;
-    font-size: 1.2rem;
+    font-size: var(--bodytext-fs);
     font-weight: 600;
     text-decoration: none;
     transition: all 0.3s;
@@ -170,12 +185,12 @@ form input, input{
 
 .header__title{
     color: white;
-    font-size: 2rem;
+    font-size: var(--headings-fs);
 }
 
 .header__sub{
     color: white;
-    font-size: 1.8rem;
+    font-size: var(--subheadings-fs);
     margin-bottom: 1rem;
 }
 
@@ -191,11 +206,12 @@ form input, input{
 
 .card, .card__completed{
     background-color: #20212C;
-    width: 100%;
+    width: 95%;
+
     /*height: 10vh;*/
     /* max-width: 800px; */
     border-radius: 30px;
-    margin: 1rem 0;
+    margin: 1rem auto;
     padding: 1rem 0.5rem;
     display: flex;
     flex-direction: row;
@@ -206,6 +222,7 @@ form input, input{
 .pending__title, .completed__title{
     color: white;
     margin: 1rem;
+    font-size: var(--subheadings-fs);
 }
 
 .card__status{
@@ -225,14 +242,18 @@ form input, input{
     justify-content: space-between;
     align-items: center;
 }
-
+/* .card__data{
+    width: 70%;
+} */
 .card__para{
     color: white;
+    font-size: var(--bodytext-fs);
+    width: 100%;
 }
 
 .card__title{
     color: white;
-    font-size: 1.5rem;
+    /* font-size: var(--subheadings-fs); */
 }
 
 .card.completed > .card__status{
@@ -248,8 +269,9 @@ form input, input{
 
 .card.completed > .card__row > .card__data > .text{
     color: tomato;
-    font-size: 1.5rem;
+    font-size: var(--cardtitle-fs);
     text-decoration: line-through;
+    width: 100%;
 }
 
 .edit__btn, .delete__btn{
@@ -257,7 +279,7 @@ form input, input{
     height: 50px;
     color: white;
     opacity: 0.7;
-    margin: auto;
+    margin: auto 0rem;
     font-size: 1.3rem;
     text-align: center;
     padding: 0.6rem;
@@ -271,11 +293,12 @@ form input, input{
 }
 
 .text{
-    font-size: 1.5rem;
+    font-size: var(--cardtitle-fs);
     color: white;
     opacity: 1;
     font-weight: 700;
     pointer-events: none;
+    width: 100%;
 }
 
 .text:focus{
@@ -283,4 +306,24 @@ form input, input{
     border-radius: 15px;
     padding: 0.5rem;
     pointer-events: all;
+}
+
+@media screen and (min-width: 500px) {
+    *{
+        --bodytext-fs: 18px;
+        --headings-fs: 36px;
+        --subheadings-fs: 25px;
+        --cardtitle-fs: 25px;
+    }
+    header{
+        flex-wrap: nowrap;
+    }
+    header > section{
+        flex-direction: column;
+        justify-content: start;
+        align-items: start;
+    }
+    .login, .logout{
+        margin-top: 0.5rem;
+    }
 }

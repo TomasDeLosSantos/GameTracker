@@ -208,12 +208,13 @@ window.addEventListener('load', () => {
         data.appendChild(title);
         data.appendChild(info);
         row.appendChild(data);
-        const btns = document.createElement("div");
-        btns.classList.add("card__btns");
+        // const btns = document.createElement("div");
+        // btns.classList.add("card__btns");
         const del = document.createElement("i");
         del.classList.add("fa-solid", "fa-trash", "delete__btn");
-        btns.appendChild(del);
-        row.appendChild(btns);
+        // btns.appendChild(del);
+        // row.appendChild(btns);
+        row.appendChild(del);
         newCard.appendChild(row);
         return newCard;
     }
@@ -342,7 +343,7 @@ window.addEventListener('load', () => {
                 confirmButtonText: 'Borrar'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    e.target.parentElement.parentElement.parentElement.remove();
+                    e.target.parentElement.parentElement.remove();
                     addGame();
                     save();
                     Swal.fire({
