@@ -100,7 +100,9 @@ window.addEventListener('load', () => {
                 load();
             })
             .then(() => {
-                userGames.sort((a,b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0));
+                userGames.sort((a,b) => {
+                    return a.name.localCompare(b.name, "en", {sensitivity: "base"});
+                });
             })
             .catch((e) => {
                 console.log("Error in network request: " + e);
