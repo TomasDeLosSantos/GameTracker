@@ -96,9 +96,11 @@ window.addEventListener('load', () => {
                     }
                     getGameAchievements(game.appid, game);
                 }
-                //userGames.sort((a,b) => (a.name.toLowerCase() > b.name.toLowerCase()) ? 1 : ((b.name.toLowerCase() > a.name.toLowerCase()) ? -1 : 0));
                 ALLGAMELIST = true;
                 load();
+            })
+            .then(() => {
+                userGames.sort((a,b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0));
             })
             .catch((e) => {
                 console.log("Error in network request: " + e);
