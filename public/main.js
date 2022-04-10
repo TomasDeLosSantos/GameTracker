@@ -99,11 +99,6 @@ window.addEventListener('load', () => {
                 ALLGAMELIST = true;
                 load();
             })
-            .then(() => {
-                userGames.sort((a,b) => {
-                    return a.name.localCompare(b.name, "en", {sensitivity: "base"});
-                });
-            })
             .catch((e) => {
                 console.log("Error in network request: " + e);
             });
