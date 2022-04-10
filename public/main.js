@@ -96,6 +96,7 @@ window.addEventListener('load', () => {
                     }
                     getGameAchievements(game.appid, game);
                 }
+                userGames.sort((a,b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0));
                 ALLGAMELIST = true;
                 load();
             })
